@@ -7,11 +7,11 @@ public class PlayField extends PApplet {
 	private int playfield_length = 450;  			// This determines the size of the total screen or playing field
 	private Bat bat = new Bat( this ) ;  			// Create a new Bat and enter the playing field as bat needs to know where he will put himself
 	private Ball ball = new Ball( this, 			// Create a new ball
-								  ( bat.getX_as()+( bat.getBatlength()/2 ) ) , // start Ball at the middle position of the bat
+								  ( bat.getX_as()+( bat.getBatLength()/2 ) ) , // start Ball at the middle position of the bat
 								  bat.getY_as() , 	// start at the bat
 								  8, 				// radius of the ball
-								  4, 				// speed
-								  0					// angle
+								  3, 				// speed
+								  -45				// angle
 								);
 	
 	

@@ -10,51 +10,87 @@ public class Ball {
 	private PlayField playField;
 	// private boolean goingUp = true;
 	private double speed; 
+	private double x_speed;
+	private double y_speed; 
 	private int angle; 
 	
 	// constructor
 	public Ball( PlayField playField, float start_x, float start_y, float radius, double speed, int angle ) {
 		this.playField = playField; 
-		this.x_as = start_x;
-		this.y_as = start_y - radius/2;
+		this.x_as = start_x ;
+		this.y_as = start_y ;
 		this.radius = radius;
-		this.speed = speed;
 		this.angle = angle;
+		setSpeeds( speed );  // Adust all speeds, total velocity, and x-axis speed, and y-axis speed
+	
 	}
 	
 	public void move() {
-		if ( y_as - speed <= (radius/2) ) { // Is it hitting the upper wall // For breakout check against the array of bricks
-			y_as = radius;
-			speed = speed * (-1);
-		} else if  ( y_as - speed >= ( playField.getBat().getY_as() ) ) // Is it the same height as the bat?
-				// && ( y_as <= playField.getPlayfieldLength() ) ) // Not yet on the lower side of the playfield
-				{
+		
+		// System.out.println("speed " + speed + " x_as " + x_as + " x_speed " + x_speed  + " y_as " + y_as + " y_speed " + y_speed + " batyaxis " + playField.getBat().getY_as()  ); 
+		
+		// Check if it hits the right wall
+		if ( x_as >= playField.getPlayfieldLength() - radius/2 ) {
+			x_as = playField.getPlayfieldLength() - radius/2;
+			bounceVertical( ); 
+		}
+		
+		// Check if it hits the left wall
+		if ( x_as  <= 0 ) {
+			// x_as = radius/2 ;
+			bounceVertical( ); 
+		}
+		
+		// Check if it hits the ceiling
+		if ( y_as  <= (radius/2) ) { // Is it hitting the upper ceiling // For breakout check against the array of bricks
+			bounceHorizontal( );
+		} 
+		
+		// Check if it hits the bat (or misses it)
+		if  ( y_as  >= ( playField.getBat().getY_as() ) ) // Is it the same height as the bat?
+			{
 			// Does it hit the bat? 
-			if ( this.x_as >= ( playField.getBat().getX_as() ) // - playField.getBat().getBatlength()/2 ) 
+			if ( this.x_as > ( playField.getBat().getX_as() ) // left side of the bat 
 					&& 
-				 this.x_as <= ( playField.getBat().getX_as() + playField.getBat().getBatlength() )
+				 this.x_as <= ( playField.getBat().getX_as() + playField.getBat().getBatLength() ) // untill the right side of the bat
 				 ) {
 				// Yes it hits the bat
-				speed = speed * (-1);
+				bounceHorizontal( );
 			} else {
 				//GAME OVER 
 				// ToDo Implement nice ending of the game
 				System.out.println("Game over: speed & y_as " + speed + " " + y_as ); 
-				y_as -= speed;
+				//For now, bounce at the bottom
+				if ( y_as >= playField.getPlayfieldLength() ) {
+					bounceHorizontal( );
+				}
 			}
-		} else {
-			y_as -= speed; 
-		}
-		// for testing; let the ball go up again if it hits the lower edge.
-		if ( y_as >= playField.getPlayfieldLength() - radius/2 ) {
-			System.out.println("I want to check this speed & y_as " + speed + " " + y_as ); 
-			speed = java.lang.Math.abs( speed ) ; // make speed positive again. 
-		}
+		} 
+		
+		y_as += y_speed; 
+		x_as += x_speed;
+		
 	}
 	
 	public void draw() {
-		playField.fill(20,50,40);
+		playField.fill(200,0,0); // Color! 
     	playField.ellipse(x_as, y_as, radius, radius);
     	// x_as is the horizontal place, then  the vertical place , length & height of rectangle, rounded corners.
+	}
+	
+	private void bounceHorizontal() {
+		//System.out.println("bounceHorizontal");
+		this.y_speed = this.y_speed * (-1);
+	}
+	
+	private void bounceVertical() {
+		//System.out.println("bounceVrtical");
+		this.x_speed = this.x_speed * (-1);
+	}
+	
+	private void setSpeeds(double newSpeed ) {
+		this.speed = newSpeed;
+		this.x_speed = java.lang.Math.sin(java.lang.Math.toRadians(angle)) * speed;
+		this.y_speed = java.lang.Math.cos(java.lang.Math.toRadians(angle)) * speed;
 	}
 }

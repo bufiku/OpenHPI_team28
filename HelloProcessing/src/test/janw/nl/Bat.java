@@ -4,14 +4,15 @@ public class Bat {
 	
 	private float x_as; 
 	private float y_as;  
-	private float batlength = 70;
+	private float batLength = 70;
+	private float batHeight = 14; 
 	private PlayField playField;
 	
 	// constructor
 	public Bat( PlayField playField ) {
 		this.playField = playField; // tell the bat where he must draw himself
 		this.y_as = this.playField.getPlayfieldLength() - 40; // leave some space under the bat.
-		this.x_as = ( this.playField.getPlayfieldLength() - this.batlength ) /2; // put the bat in the middle of the playfield
+		this.x_as = ( this.playField.getPlayfieldLength() - this.batLength ) /2; // put the bat in the middle of the playfield
 	}
 	
 	public void moveLeft() {
@@ -23,8 +24,8 @@ public class Bat {
 	}
 	
 	public void moveRight() {
-		if ( x_as + 3 >  ( playField.getPlayfieldLength() - batlength) ) {
-			x_as = playField.getPlayfieldLength() - ( batlength + 1 ) ; 
+		if ( x_as + 3 >  ( playField.getPlayfieldLength() - batLength) ) {
+			x_as = playField.getPlayfieldLength() - ( batLength + 1 ) ; 
 		} else {
 			x_as += 3; 
 		};
@@ -33,7 +34,7 @@ public class Bat {
 	
 	public void draw() {
 		playField.fill(20,50,240); // give some color
-    	playField.rect(x_as, y_as , batlength, 15, 4);
+    	playField.rect(x_as, y_as , batLength, batHeight, 4);
     	// x_as is the horizontal place, then  the vertical place , length & height of rectangle, rounded corners.
 	}
 	
@@ -47,13 +48,15 @@ public class Bat {
 	public float getY_as() {
 		return y_as;
 	}
-	public float getBatlength() {
-		return batlength;
+	public float getBatLength() {
+		return batLength;
 	}
-	public void setBatlength(float batlength) {
-		this.batlength = batlength;
+	public void setBatlength(float batLength) {
+		this.batLength = batLength;
 	}
-
+	public float getBatHeight() {
+		return batHeight;
+	}
 
 	
 }
