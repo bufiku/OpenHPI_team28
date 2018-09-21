@@ -1,6 +1,6 @@
 package test.janw.nl;
 
-// import processing.core.PApplet;
+// import processing.core.PApplet; // Not necessary? 
 
 public class Ball { 
 	
