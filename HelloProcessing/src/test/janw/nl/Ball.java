@@ -59,7 +59,7 @@ public class Ball {
 	 * will never leave the canvas.
 	 *
 	 */
-	public void move() {
+	public void move() throws  Exception  {
 
 		// Check if it hits the right wall
 		// System.out.println("speed " + speed + " x_as " + x_as + " x_speed " + x_speed
@@ -96,11 +96,12 @@ public class Ball {
 				/**
 				 * ToDo Implement nice ending of the game
 				 */
-				System.out.println("Game over: speed & y_as " + speed + " " + y_as);
+				throw new Exception("You just lost this game"); 
+				// System.out.println("Game over: speed & y_as " + speed + " " + y_as);
 				// For now, bounce at the bottom
-				if (y_as >= playField.getPlayfieldLength()) {
-					bounceHorizontal();
-				}
+				// if (y_as >= playField.getPlayfieldLength()) {
+				//	bounceHorizontal();
+				// }
 			}
 		}
 

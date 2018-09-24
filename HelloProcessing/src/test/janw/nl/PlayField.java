@@ -1,6 +1,7 @@
 package test.janw.nl;
 
 import processing.core.PApplet;
+import processing.core.PFont; 
 
 /**
  * This class was written as a part of creating a squash program for the
@@ -29,8 +30,8 @@ public class PlayField extends PApplet {
 			bat.getY_as(), 				// start at the height of the bat
 			8, 							// radius of the ball
 			6, 							// speed
-			-45 						// angle
-	);
+			-45 );						// angle
+	private PFont font;
 
 	/**
 	 * The starting point of the whole app. Tell the Processing framework where we
@@ -54,6 +55,7 @@ public class PlayField extends PApplet {
 	@Override
 	public void setup() {
 		background(222);
+		font = createFont("Arial",16,true); // Set the font and size
 	}
 
 	/**
@@ -89,7 +91,16 @@ public class PlayField extends PApplet {
 		// Set the background again, so we have no trailing leftovers from the bat.
 		background(222);
 		// Move and draw the objects
-		ball.move(); 	// Move the ball
+		try {
+			ball.move(); 	// Move the ball
+		} catch (Exception e) {
+			System.out.println("Game over");
+			textFont(font,30);  // Set the size of the font
+			fill(120); 			// Set the color of the letters
+			text("You loose!", playfield_length/2 - 50, playfield_length/2); // display text
+			noLoop(); 			// Stop processing
+								// Thanks to documentation: https://www.processing.org/tutorials/text/
+		}
 		ball.draw(); 	// Draw the ball
 		bat.draw(); 	// Draw the bat
 		// System.out.println("Bat is Drawn");
