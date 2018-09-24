@@ -98,7 +98,7 @@ public class PlayField extends PApplet {
 								// Thanks to documentation: https://www.processing.org/tutorials/text/
 			textFont(font,30);  // Set the size of the font
 			fill(120); 			// Set the color of the letters
-			text("You loose!", playfield_length/2 - 50, playfield_length/2); // display text
+			text("Game over!", playfield_length/2 - 50, playfield_length/2); // display text
 			noLoop(); 			// Stop processing; see https://processing.org/reference/noLoop_.html
 		}
 		ball.draw(); 	// Draw the ball
